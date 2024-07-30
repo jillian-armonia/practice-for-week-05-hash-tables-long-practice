@@ -196,6 +196,7 @@ describe ('Phase 1 - Hash table implementation', function () {
     hashTable.delete("key9")
     hashTable.delete("key10")
 
+
     // check for values
     expect(hashTable.read("key1")).to.equal("value1");
     expect(hashTable.read("key3")).to.equal("value3");
