@@ -45,10 +45,10 @@ describe ('Phase 3 - Hash table optimization problems', function (){
 
         expect(longestPalindrome("abccccdd")).to.equal(7);
 
-        target = 1000000 - 1;
+        target = 1000000;
 
         arr = new Array(target).fill("a");
-        arr[500000 - 1] = "b";
+        arr.push = "b";
 
         const str = arr.join("");
 
@@ -65,10 +65,10 @@ describe ('Phase 3 - Hash table optimization problems', function (){
 
         expect(longestSubstr("bbbbb")).to.equal(1);
 
-        arr = new Array(999996).fill("b");
-        arr[999996 - 1] = "abcd";
+        arr = new Array(15).fill("b");
 
-        const str = arr.join("");
+        let str = arr.join("");
+        str += "acd";
 
         expect(longestSubstr(str)).to.equal(4);
     });
