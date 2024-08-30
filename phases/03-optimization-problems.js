@@ -162,7 +162,7 @@ function coinChange(deno, total, memo = {}){
 }
 
 
-function climbingSteps(n){
+function climbingSteps(n, memo = {}){
     //0. There are only 3 types of ways to climb: 1, 2, or 3 steps
     const steps = [1, 2, 3];
 
@@ -172,22 +172,27 @@ function climbingSteps(n){
     //2. If there are no steps, there is only 1 way to climb it (you don't) and also this means that there are no steps left so increment the way counter with one
     if (n === 0){
         counter++;
+        return counter;
     }
 
-    //3. Iterate through the types of steps
+    if (memo[n] === undefined){
+        //3. Iterate through the types of steps
     for (let step of steps){
-    //4. If the step is less than the top, then recurse by subtracting the step from the n
+        //4. If the step is less than the top, then recurse by subtracting the step from the n
 
-        if (step <= n){
-            let currentCount = climbingSteps(n - step);
-            counter += currentCount;
+            if (step <= n){
+                let currentCount = climbingSteps(n - step);
+                counter += currentCount;
+            }
         }
 
-
+        memo[n] = counter;
     }
 
+
+
     //5. Return the way counter
-    return counter;
+    return memo[n];
 
 }
 
