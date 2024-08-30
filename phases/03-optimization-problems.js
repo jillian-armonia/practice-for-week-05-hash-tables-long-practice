@@ -129,13 +129,65 @@ function maxSubarr(arr){
 }
 
 
-function coinChange(deno, total){
+function coinChange(deno, total, memo = {}){
     //1. If total is equal to 0, return 0
-    //2. 
+    if (total === 0) return 0;
+
+    //2. Assign the fewest change as -1 in case if there are no possible change and also to signify that there has been no best so far
+    let fewest = -1;
+
+    //4. If the total is NOT a key in the memo, create it as a key by using recursion
+    if (memo[total] === undefined){
+        //4a. Iterate through the coins
+        for (let amount of deno){
+            //4b. If there is a coin less than the total, subtract it from the total and use that difference to recurse for the next try at the change
+            if (amount <= total){
+                let attempt = coinChange(deno, total - amount, memo);
+
+                if (fewest < 0 || fewest > attempt + 1){
+                    fewest = attempt + 1
+                }
+            }
+            //4c. If the best is less than 0 or best is bigger than the next try plus 1 (because for the change to be 0, you must have used at least an exact amount of denomination)
+
+        }
+
+        //4d. Assign that best to the total key
+        memo[total] = fewest
+    }
+
+    //5. Return the value of the total key in the memo
+    return memo[total];
+
 }
 
 
 function climbingSteps(n){
+    //0. There are only 3 types of ways to climb: 1, 2, or 3 steps
+    const steps = [1, 2, 3];
+
+    //1. Make a way counter
+    let counter = 0;
+
+    //2. If there are no steps, there is only 1 way to climb it (you don't) and also this means that there are no steps left so increment the way counter with one
+    if (n === 0){
+        counter++;
+    }
+
+    //3. Iterate through the types of steps
+    for (let step of steps){
+    //4. If the step is less than the top, then recurse by subtracting the step from the n
+
+        if (step <= n){
+            let currentCount = climbingSteps(n - step);
+            counter += currentCount;
+        }
+
+
+    }
+
+    //5. Return the way counter
+    return counter;
 
 }
 
